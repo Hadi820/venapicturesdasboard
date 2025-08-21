@@ -124,7 +124,7 @@ const App: React.FC = () => {
     users, clients, packages, addOns, projects, teamMembers, transactions, cards, pockets,
     teamProjectPayments, teamPaymentRecords, leads, rewardLedgerEntries, assets, clientFeedback,
     contracts, notifications, socialMediaPosts, promoCodes, sops, profile, setProfile,
-    userCrud, clientCrud, packageCrud, addOnCrud, projectCrud, teamMemberCrud,
+  userCrud, clientCrud, packageCrud, addOnCrud, projectCrud, teamMemberCrud, setClientFeedback,
     transactionCrud, cardCrud, pocketCrud, teamProjectPaymentCrud,
     teamPaymentRecordCrud, leadCrud, rewardLedgerEntryCrud, assetCrud,
     clientFeedbackCrud, contractCrud, notificationCrud, socialMediaPostCrud,
@@ -182,14 +182,16 @@ const App: React.FC = () => {
 
   // Use default profile if none exists
   const currentProfile = profile || {
-    fullName: 'Vena Pictures',
-    email: 'admin@vena.pictures',
+  id: 'DEFAULT_PROFILE',
+  user_id: 'DEFAULT_USER',
+  fullName: 'Honesty Pictures',
+  email: 'admin@vena.pictures',
     phone: '+62 895-4061-81407',
-    companyName: 'Vena Pictures',
-    website: 'https://vena.pictures',
+  companyName: 'Honesty Pictures',
+  website: 'https://vena.pictures',
     address: 'Jl. Contoh No. 123, Jakarta',
-    bankAccount: 'BCA 1234567890 a.n. Vena Pictures',
-    authorizedSigner: 'Vena Pictures',
+  bankAccount: 'BCA 1234567890 a.n. Honesty Pictures',
+  authorizedSigner: 'Honesty Pictures',
     bio: 'Vendor fotografi dan videografi profesional',
     incomeCategories: ['DP Proyek', 'Pelunasan Proyek'],
     expenseCategories: ['Gaji Freelancer', 'Peralatan'],
@@ -531,7 +533,7 @@ const App: React.FC = () => {
     />;
   }
   if (route.startsWith('#/feedback')) {
-    return <PublicFeedbackForm clientFeedbackCrud={clientFeedbackCrud} />;
+    return <PublicFeedbackForm setClientFeedback={setClientFeedback} />;
   }
   if (route.startsWith('#/suggestion-form')) {
     return <SuggestionForm leadCrud={leadCrud} />;
@@ -539,8 +541,41 @@ const App: React.FC = () => {
   if (route.startsWith('#/revision-form')) {
     return <PublicRevisionForm projects={projects} teamMembers={teamMembers} onUpdateRevision={handleUpdateRevision} />;
   }
-  if (route.startsWith('#/portal/')) {
-    const accessId = route.split('/portal/')[1];
+  // Robust portal routing: support hash (#/portal/...), pathname (/portal/:id),
+  // or query params (?portal=...) because some mobile in-app browsers or QR
+  // scanners may open links without the hash fragment or encode it.
+  const extractAccessId = (type: 'portal' | 'freelancer-portal') => {
+    try {
+      const hash = window.location.hash || '';
+      const path = window.location.pathname || '';
+      const search = window.location.search || '';
+      const hashPrefix = `#/${type}/`;
+      if (hash.startsWith(hashPrefix)) {
+        const raw = hash.slice(hash.indexOf(hashPrefix) + hashPrefix.length);
+        return decodeURIComponent(String(raw).split(/[?#]/)[0]);
+      }
+      // support direct path like /portal/:id
+      const pathRegex = new RegExp(`/${type}/([^/?#]+)`);
+      const m = path.match(pathRegex);
+      if (m && m[1]) return decodeURIComponent(m[1]);
+      // support query param like ?portal=ID or ?freelancer=ID
+      const params = new URLSearchParams(search);
+      if (type === 'portal') {
+        const v = params.get('portal') || params.get('accessId');
+        if (v) return decodeURIComponent(v);
+      } else {
+        const v = params.get('freelancer') || params.get('accessId');
+        if (v) return decodeURIComponent(v);
+      }
+    } catch (err) {
+      console.error('Failed to extract portal access id from location', err);
+    }
+    return '';
+  };
+
+  const clientPortalAccessId = extractAccessId('portal');
+  if (clientPortalAccessId) {
+    const accessId = clientPortalAccessId;
     // Provide a compatible setClientFeedback function expected by the portal.
     // The portal will call setClientFeedback(updater) where updater is a function
     // that receives previous feedback array and returns a new array including the new entry.
@@ -576,8 +611,10 @@ const App: React.FC = () => {
         onSignContract={handleSignContract}
     />;
   }
-  if (route.startsWith('#/freelancer-portal/')) {
-    const accessId = route.split('/freelancer-portal/')[1];
+
+  const freelancerPortalAccessId = extractAccessId('freelancer-portal');
+  if (freelancerPortalAccessId) {
+    const accessId = freelancerPortalAccessId;
     return <FreelancerPortal 
         accessId={accessId} 
         teamMembers={teamMembers} 

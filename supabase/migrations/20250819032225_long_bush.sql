@@ -1,5 +1,5 @@
 /*
-  # Initial Database Schema for Vena Pictures Management System
+  # Initial Database Schema for Honesty Pictures Management System
 
   1. New Tables
     - `users` - Application users with roles and permissions

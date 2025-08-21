@@ -48,7 +48,7 @@ const ClientReports: React.FC<ClientReportsProps> = ({ clients, leads, projects,
         const convertedLeads = clients.length;
         const conversionRate = totalLeads > 0 ? (convertedLeads / totalLeads) * 100 : 0;
 
-        const totalRevenue = projects.reduce((sum, p) => sum + p.totalCost, 0);
+    const totalRevenue = projects.reduce((sum: number, p: Project) => sum + Number(p.totalCost ?? 0), 0);
         const avgRevenuePerClient = convertedLeads > 0 ? totalRevenue / convertedLeads : 0;
         
         const leadSourceDistribution = leads.reduce((acc, lead) => {
@@ -67,7 +67,7 @@ const ClientReports: React.FC<ClientReportsProps> = ({ clients, leads, projects,
         };
 
         const leadSourceDonutData = Object.entries(leadSourceDistribution)
-            .sort(([, a], [, b]) => b - a)
+            .sort(([, a], [, b]) => Number(b) - Number(a))
             .map(([label, value]) => ({
                 label,
                 value,
@@ -275,7 +275,7 @@ const ClientReports: React.FC<ClientReportsProps> = ({ clients, leads, projects,
                             <tbody className="divide-y divide-brand-border">
                                 {clients.slice(0, 10).map(client => {
                                     const clientProjects = projects.filter(p => p.clientId === client.id);
-                                    const totalValue = clientProjects.reduce((sum, p) => sum + p.totalCost, 0);
+                                    const totalValue = clientProjects.reduce((sum: number, p: Project) => sum + Number(p.totalCost ?? 0), 0);
                                     return (
                                         <tr key={client.id}>
                                             <td className="p-3 font-medium text-brand-text-primary">{client.name}</td>

@@ -1,4 +1,5 @@
 import { supabaseService } from './supabase-helpers';
+import React from 'react';
 import { 
   User, Client, Package, AddOn, Project, TeamMember, Transaction, Card, 
   FinancialPocket, TeamProjectPayment, TeamPaymentRecord, Lead, RewardLedgerEntry,
@@ -6,7 +7,8 @@ import {
 } from '../types';
 
 // Sync functions that handle both local state and database updates
-export const createSyncedSetters = (supabaseService: typeof supabaseService) => {
+// Accept a generic service type to avoid circular typeof reference in types
+export const createSyncedSetters = (supabaseService: any) => {
   return {
     // Users
     createUser: async (user: Omit<User, 'id'>, setUsers: React.Dispatch<React.SetStateAction<User[]>>) => {

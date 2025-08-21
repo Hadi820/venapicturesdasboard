@@ -34,7 +34,7 @@ const PackageCard: React.FC<{ pkg: Package, onSelect: () => void }> = ({ pkg, on
                 </ul>
             </div>
         </div>
-        <p className="text-xs text-brand-text-secondary mt-4">Estimasi Pengerjaan: {pkg.processingTime}</p>
+    {/* Estimasi Pengerjaan removed from public view per request */}
         <button onClick={onSelect} className="mt-6 button-primary w-full">Pilih Paket Ini</button>
     </div>
 );
@@ -46,6 +46,8 @@ interface PublicPackagesProps {
 }
 
 const PublicPackages: React.FC<PublicPackagesProps> = ({ packages, userProfile, showNotification }) => {
+    const ADMIN_LOCAL_NUMBER = '085693762240';
+    const ADMIN_INTERNATIONAL_NUMBER = ADMIN_LOCAL_NUMBER.replace(/^0/, '62');
     const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
     const [isContractModalOpen, setIsContractModalOpen] = useState(false);
 
@@ -166,13 +168,13 @@ const PublicPackages: React.FC<PublicPackagesProps> = ({ packages, userProfile, 
                             <h4 className="font-bold text-brand-text-light">Butuh Bantuan?</h4>
                             <p className="text-sm text-brand-text-secondary mt-1">Jika ada pertanyaan atau butuh bantuan dalam pengisian formulir, jangan ragu untuk menghubungi admin kami melalui WhatsApp.</p>
                         </div>
-                        <a 
-                            href="https://wa.me/62895406181407" 
-                            target="_blank" 
+                        <a
+                            href={`https://wa.me/${ADMIN_INTERNATIONAL_NUMBER}`}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="button-primary whitespace-nowrap mt-4 sm:mt-0 sm:ml-auto"
                         >
-                            Hubungi Admin
+                            Hubungi Admin ({ADMIN_LOCAL_NUMBER})
                         </a>
                     </div>
                     

@@ -15,6 +15,9 @@ interface PublicLeadFormProps {
 }
 
 const PublicLeadForm: React.FC<PublicLeadFormProps> = ({ leadCrud, userProfile }) => {
+    // Admin number: keep local format for display and convert to international for wa.me
+    const ADMIN_LOCAL_NUMBER = '085693762240';
+    const ADMIN_INTERNATIONAL_NUMBER = ADMIN_LOCAL_NUMBER.replace(/^0/, '62');
     const [formState, setFormState] = useState({
         name: '',
         whatsapp: '',
@@ -52,15 +55,15 @@ const PublicLeadForm: React.FC<PublicLeadFormProps> = ({ leadCrud, userProfile }
     };
 
     if (isSubmitted) {
-        const whatsappMessage = `Halo admin Vena Pictures, saya ${formState.name}. Saya baru saja mengisi formulir prospek dan ingin menanyakan informasi lebih lanjut.`;
-        const whatsappUrl = `https://wa.me/62895406181407?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappMessage = `Halo admin Honesty Pictures, saya ${formState.name}. Saya baru saja mengisi formulir prospek dan ingin menanyakan informasi lebih lanjut.`;
+        const whatsappUrl = `https://wa.me/${ADMIN_INTERNATIONAL_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
 
         return (
             <div className="flex items-center justify-center min-h-screen bg-brand-bg p-4">
                 <div className="w-full max-w-lg p-8 text-center bg-brand-surface rounded-2xl shadow-lg border border-brand-border">
                     <h1 className="text-2xl font-bold text-gradient">Terima Kasih!</h1>
                     <p className="mt-4 text-brand-text-primary">Informasi Anda telah kami terima. Tim kami akan segera menghubungi Anda.</p>
-                    <p className="mt-2 text-sm text-brand-text-secondary">Untuk bantuan atau informasi lebih lanjut, silakan hubungi admin kami.</p>
+                    <p className="mt-2 text-sm text-brand-text-secondary">Untuk bantuan atau informasi lebih lanjut, silakan hubungi admin kami: {ADMIN_LOCAL_NUMBER}.</p>
                     <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="mt-6 button-primary inline-block">
                         Hubungi Admin via WhatsApp
                     </a>

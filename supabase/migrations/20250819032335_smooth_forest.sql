@@ -6,7 +6,6 @@
   3. Maintain referential integrity between tables
 */
 
--- Insert default profile
 INSERT INTO profiles (
   id,
   user_id,
@@ -31,14 +30,14 @@ INSERT INTO profiles (
 ) VALUES (
   '550e8400-e29b-41d4-a716-446655440161',
   '0f0e7315-6c62-4c43-bb12-7c3bd3dba244',
-  'Vena Pictures',
+  'Honesty Pictures',
   'admin@vena.pictures',
   '+62 895-4061-81407',
-  'Vena Pictures',
+  'Honesty Pictures',
   'https://vena.pictures',
   'Jl. Contoh No. 123, Jakarta',
-  'BCA 1234567890 a.n. Vena Pictures',
-  'Vena Pictures',
+  'BCA 1234567890 a.n. Honesty Pictures',
+  'Honesty Pictures',
   'Vendor fotografi dan videografi profesional yang mengabadikan momen berharga Anda.',
   '["DP Proyek", "Pelunasan Proyek", "Penjualan Aset", "Pendapatan Lainnya"]'::jsonb,
   '["Gaji Freelancer", "Peralatan", "Transport", "Akomodasi", "Marketing", "Operasional"]'::jsonb,
@@ -56,19 +55,17 @@ INSERT INTO profiles (
     {"id": "status_7", "name": "Dibatalkan", "color": "#ef4444", "subStatuses": [], "note": "Proyek dibatalkan"}
   ]'::jsonb,
   'Halo tim! Briefing untuk proyek [NAMA_PROYEK] pada [TANGGAL] di [LOKASI]. Mohon persiapkan peralatan dan datang tepat waktu. Terima kasih!',
-  E'📜 SYARAT & KETENTUAN UMUM\n\n📅 JADWAL & WAKTU\n- Jadwal pemotretan yang telah disepakati tidak dapat diubah kecuali ada kesepakatan baru\n- Keterlambatan dari pihak klien akan mengurangi waktu pemotretan\n- Perpanjangan waktu akan dikenakan biaya tambahan\n\n💰 PEMBAYARAN\n- DP minimal 30% dari total biaya saat booking\n- Pelunasan paling lambat H-3 sebelum hari pelaksanaan\n- DP yang sudah dibayar tidak dapat dikembalikan jika terjadi pembatalan\n\n📦 HASIL & PENYERAHAN\n- Hasil foto/video akan diserahkan sesuai paket yang dipilih\n- Waktu pengerjaan sesuai yang tercantum di masing-masing paket\n- Revisi minor dapat dilakukan maksimal 2x\n\n⏱ KETERLAMBATAN\n- Keterlambatan penyerahan hasil akan mendapat kompensasi sesuai kesepakatan\n- Force majeure (bencana alam, pandemi, dll) tidak termasuk keterlambatan\n\n➕ LAIN-LAIN\n- Hak cipta foto/video tetap milik Vena Pictures untuk keperluan promosi\n- Klien berhak mendapat salinan hasil sesuai paket\n- Segala perubahan dari kesepakatan awal harus tertulis'
+  E'📜 SYARAT & KETENTUAN UMUM\n\n📅 JADWAL & WAKTU\n- Jadwal pemotretan yang telah disepakati tidak dapat diubah kecuali ada kesepakatan baru\n- Keterlambatan dari pihak klien akan mengurangi waktu pemotretan\n- Perpanjangan waktu akan dikenakan biaya tambahan\n\n💰 PEMBAYARAN\n- DP minimal 30% dari total biaya saat booking\n- Pelunasan paling lambat H-3 sebelum hari pelaksanaan\n- DP yang sudah dibayar tidak dapat dikembalikan jika terjadi pembatalan\n\n📦 HASIL & PENYERAHAN\n- Hasil foto/video akan diserahkan sesuai paket yang dipilih\n- Waktu pengerjaan sesuai yang tercantum di masing-masing paket\n- Revisi minor dapat dilakukan maksimal 2x\n\n⏱ KETERLAMBATAN\n- Keterlambatan penyerahan hasil akan mendapat kompensasi sesuai kesepakatan\n- Force majeure (bencana alam, pandemi, dll) tidak termasuk keterlambatan\n\n➕ LAIN-LAIN\n- Hak cipta foto/video tetap milik Honesty Pictures untuk keperluan promosi\n- Klien berhak mendapat salinan hasil sesuai paket\n- Segala perubahan dari kesepakatan awal harus tertulis'
 );
 
--- Insert users
 INSERT INTO users (id, email, password, full_name, role, permissions) VALUES
-('0f0e7315-6c62-4c43-bb12-7c3bd3dba244', 'admin@vena.pictures', 'admin', 'Admin Vena Pictures', 'Admin', NULL),
-('3f1f4a7c-7c6b-4d05-88a7-97d85ae7692f', 'member@vena.pictures', 'member', 'Member Vena Pictures', 'Member', '["Manajemen Klien", "Proyek", "Freelancer", "Keuangan"]'::jsonb);
+('0f0e7315-6c62-4c43-bb12-7c3bd3dba244', 'admin@vena.pictures', 'admin', 'Admin Honesty Pictures', 'Admin', NULL),
+('3f1f4a7c-7c6b-4d05-88a7-97d85ae7692f', 'member@vena.pictures', 'member', 'Member Honesty Pictures', 'Member', '["Manajemen Klien", "Proyek", "Freelancer", "Keuangan"]'::jsonb);
 
--- Insert cards
 INSERT INTO cards (id, card_holder_name, bank_name, card_type, last_four_digits, expiry_date, balance, color_gradient) VALUES
-('550e8400-e29b-41d4-a716-446655440001', 'Vena Pictures', 'BCA', 'Debit', '3090', '12/26', 15750000, 'from-blue-500 to-sky-400'),
-('550e8400-e29b-41d4-a716-446655440002', 'Vena Pictures', 'Mandiri', 'Kredit', '7821', '08/25', 8200000, 'from-purple-500 to-pink-400'),
-('550e8400-e29b-41d4-a716-446655440003', 'Vena Pictures', 'Tunai', 'Tunai', '0000', NULL, 2500000, 'from-slate-600 to-slate-400');
+('550e8400-e29b-41d4-a716-446655440001', 'Honesty Pictures', 'BCA', 'Debit', '3090', '12/26', 15750000, 'from-blue-500 to-sky-400'),
+('550e8400-e29b-41d4-a716-446655440002', 'Honesty Pictures', 'Mandiri', 'Kredit', '7821', '08/25', 8200000, 'from-purple-500 to-pink-400'),
+('550e8400-e29b-41d4-a716-446655440003', 'Honesty Pictures', 'Tunai', 'Tunai', '0000', NULL, 2500000, 'from-slate-600 to-slate-400');
 
 -- Insert financial pockets
 INSERT INTO financial_pockets (id, name, description, icon, type, amount, goal_amount, source_card_id) VALUES
@@ -139,7 +136,7 @@ INSERT INTO assets (id, name, category, purchase_date, purchase_price, serial_nu
 
 -- Insert client feedback
 INSERT INTO client_feedback (id, client_name, satisfaction, rating, feedback, date) VALUES
-('550e8400-e29b-41d4-a716-446655440111', 'Budi Santoso', 'Sangat Puas', 5, 'Hasil foto prewedding sangat bagus! Tim sangat profesional dan ramah. Terima kasih Vena Pictures!', '2024-03-01'),
+('550e8400-e29b-41d4-a716-446655440111', 'Budi Santoso', 'Sangat Puas', 5, 'Hasil foto prewedding sangat bagus! Tim sangat profesional dan ramah. Terima kasih Honesty Pictures!', '2024-03-01'),
 ('550e8400-e29b-41d4-a716-446655440112', 'Keluarga Wijaya', 'Puas', 4, 'Pelayanan baik, hasil memuaskan. Hanya saja pengiriman agak terlambat dari jadwal.', '2024-02-20');
 
 -- Insert promo codes

@@ -4,7 +4,8 @@ import { ClientFeedback, SatisfactionLevel } from '../types';
 import { StarIcon } from '../constants';
 
 interface PublicFeedbackFormProps {
-    setClientFeedback: React.Dispatch<React.SetStateAction<ClientFeedback[]>>;
+    setClientFeedback?: React.Dispatch<React.SetStateAction<ClientFeedback[]>>;
+    clientFeedbackCrud?: { add: (item: Omit<ClientFeedback, 'id'>) => Promise<ClientFeedback> };
 }
 
 const getSatisfactionFromRating = (rating: number): SatisfactionLevel => {
@@ -14,7 +15,7 @@ const getSatisfactionFromRating = (rating: number): SatisfactionLevel => {
     return SatisfactionLevel.UNSATISFIED;
 };
 
-const PublicFeedbackForm: React.FC<PublicFeedbackFormProps> = ({ setClientFeedback }) => {
+const PublicFeedbackForm: React.FC<PublicFeedbackFormProps> = ({ setClientFeedback, clientFeedbackCrud }) => {
     const [formState, setFormState] = useState({
         clientName: '',
         rating: 0,
@@ -48,7 +49,12 @@ const PublicFeedbackForm: React.FC<PublicFeedbackFormProps> = ({ setClientFeedba
             date: new Date().toISOString(),
         };
 
-        await clientFeedbackCrud.add(newFeedbackData);
+            if (clientFeedbackCrud && typeof clientFeedbackCrud.add === 'function') {
+                await clientFeedbackCrud.add(newFeedbackData as any);
+            } else if (setClientFeedback) {
+                // Append locally via setter
+                setClientFeedback(prev => [{ id: `fb_${Date.now()}`, ...newFeedbackData } as any, ...prev]);
+            }
         setIsSubmitting(false);
         setIsSubmitted(true);
     };

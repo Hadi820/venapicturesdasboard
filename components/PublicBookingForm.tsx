@@ -207,7 +207,7 @@ const PublicBookingForm: React.FC<PublicBookingFormProps> = ({
         // Try to find existing client by email or normalized phone before creating
         const normalizedPhone = cleanPhoneNumber(formData.phone || '');
         const existingClient = clients.find(c => {
-            const clientPhone = cleanPhoneNumber((c.phone || c.whatsapp || c.whatsapp_number || '') as string);
+            const clientPhone = cleanPhoneNumber((c.phone || c.whatsapp || (c as any).whatsapp_number || '') as string);
             const clientEmail = (c.email || '').toLowerCase().trim();
             return (formData.email && clientEmail && clientEmail === formData.email.toLowerCase().trim())
                 || (normalizedPhone && clientPhone && clientPhone === normalizedPhone);

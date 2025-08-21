@@ -252,7 +252,7 @@ const Packages: React.FC<PackagesProps> = ({ packages, packageCrud, addOns, addO
             <form className="space-y-4" onSubmit={handlePackageSubmit}>
                 <div className="input-group"><input type="text" name="name" value={packageFormData.name} onChange={handlePackageInputChange} className="input-field" placeholder=" " required/><label className="input-label">Nama Paket</label></div>
                 <div className="input-group"><input type="number" name="price" value={packageFormData.price} onChange={handlePackageInputChange} className="input-field" placeholder=" " required/><label className="input-label">Harga Paket (IDR)</label></div>
-                <div className="input-group"><input type="text" name="processingTime" value={packageFormData.processingTime} onChange={handlePackageInputChange} className="input-field" placeholder=" " required/><label className="input-label">Estimasi Pengerjaan</label></div>
+                {/* Estimasi Pengerjaan field removed per request */}
                 <div className="input-group"><input type="text" name="photographers" value={packageFormData.photographers} onChange={handlePackageInputChange} className="input-field" placeholder=" "/><label className="input-label">Fotografer (e.g., 2 Fotografer)</label></div>
                 <div className="input-group"><input type="text" name="videographers" value={packageFormData.videographers} onChange={handlePackageInputChange} className="input-field" placeholder=" "/><label className="input-label">Videografer (e.g., 1 Videografer)</label></div>
                 
@@ -301,7 +301,6 @@ const Packages: React.FC<PackagesProps> = ({ packages, packageCrud, addOns, addO
                         <div className="flex justify-between items-start">
                             <div>
                                 <h5 className="font-bold text-brand-text-light">{pkg.name}</h5>
-                                <p className="text-sm text-brand-text-secondary mt-1">Estimasi Pengerjaan: {pkg.processingTime}</p>
                             </div>
                             <div className="text-right ml-4 flex-shrink-0">
                                 <p className="text-lg font-semibold text-brand-text-light whitespace-nowrap">{formatCurrency(pkg.price)}</p>

@@ -72,7 +72,7 @@ const SuggestionForm: React.FC<SuggestionFormProps> = ({ leadCrud }) => {
                         <Logo />
                     </div>
                     <h1 className="text-2xl font-bold text-brand-text-light">Formulir Saran & Masukan</h1>
-                    <p className="text-sm text-brand-text-secondary">Punya ide atau pertanyaan untuk Vena Pictures? Kami ingin mendengarnya dari Anda!</p>
+                    <p className="text-sm text-brand-text-secondary">Punya ide atau pertanyaan untuk Honesty Pictures? Kami ingin mendengarnya dari Anda!</p>
                 </div>
 
                 <form className="space-y-4" onSubmit={handleSubmit}>

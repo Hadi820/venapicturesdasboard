@@ -593,7 +593,7 @@ const ConfirmationModal: React.FC<{
 
 Halo *${recipientName}*,
 
-Kami dari *Vena Pictures* ingin meminta konfirmasi Anda untuk sub-tugas pada proyek *"${project.projectName}"*.
+Kami dari *Honesty Pictures* ingin meminta konfirmasi Anda untuk sub-tugas pada proyek *"${project.projectName}"*.
 
 *Tugas yang perlu dikonfirmasi:*
 📝 *${subStatus.name}*
@@ -608,13 +608,13 @@ Jika ada pertanyaan, jangan ragu untuk menghubungi kami kembali.
 Terima kasih atas perhatian dan kerja samanya!
 
 Salam hangat,
-*Tim Vena Pictures*`;
+*Tim Honesty Pictures*`;
 
         const followUpMessage = `✨ *Follow-Up Konfirmasi Tugas* ✨
 
 Halo *${recipientName}*,
 
-Kami dari *Vena Pictures* ingin menindaklanjuti dengan hormat permintaan konfirmasi kami sebelumnya untuk sub-tugas pada proyek *"${project.projectName}"*.
+Kami dari *Honesty Pictures* ingin menindaklanjuti dengan hormat permintaan konfirmasi kami sebelumnya untuk sub-tugas pada proyek *"${project.projectName}"*.
 
 *Tugas yang perlu dikonfirmasi:*
 📝 *${subStatus.name}*
@@ -629,7 +629,7 @@ Jika ada pertanyaan atau kendala, jangan ragu untuk menghubungi kami.
 Terima kasih atas perhatian dan kerja samanya!
 
 Salam hangat,
-*Tim Vena Pictures*`;
+*Tim Honesty Pictures*`;
 
         setMessage(isFollowUp ? followUpMessage : initialMessage);
 
@@ -1000,7 +1000,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, projectCrud, clien
                 description: `Biaya ${item.type} - ${updatedProject.projectName}`,
                 amount: item.cost, type: TransactionType.EXPENSE, projectId: updatedProject.id,
                 category: item.type === 'Custom' ? 'Custom' : item.type,
-                method: 'Sistem', cardId: paymentCardId, printingItemId: item.id
+                method: 'Sistem' as const, cardId: paymentCardId, printingItemId: item.id
             };
             await transactionCrud.add(newTx);
         }
@@ -1040,7 +1040,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, projectCrud, clien
                 const newTx = {
                     id: txId, date: new Date().toISOString().split('T')[0], description, amount: cost,
                     type: TransactionType.EXPENSE, projectId: updatedProject.id, category,
-                    method: 'Sistem', cardId: paymentCardId,
+                    method: 'Sistem' as const, cardId: paymentCardId,
                 };
                 await transactionCrud.add(newTx);
             }
@@ -1073,7 +1073,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects, projectCrud, clien
                     teamMemberName: teamMember.name,
                     teamMemberId: teamMember.memberId,
                     date: projectData.date,
-                    status: 'Unpaid',
+                    status: 'Unpaid' as const,
                     fee: teamMember.fee,
                     reward: teamMember.reward || 0,
                 };

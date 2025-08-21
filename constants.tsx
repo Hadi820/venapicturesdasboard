@@ -502,9 +502,9 @@ export const MOCK_USERS: User[] = [
 
 export const MOCK_CARDS: Card[] = [
     { id: 'CARD_CASH', cardHolderName: 'Kas Perusahaan', bankName: 'Tunai', cardType: CardType.TUNAI, lastFourDigits: 'CASH', balance: 14000000, colorGradient: 'from-slate-100 to-slate-300' },
-    { id: 'CARD001', cardHolderName: 'Vena Pictures', bankName: 'WBank', cardType: CardType.DEBIT, lastFourDigits: '3090', expiryDate: '12/26', balance: 85500000, colorGradient: 'from-blue-500 to-sky-400' },
-    { id: 'CARD002', cardHolderName: 'Vena Pictures', bankName: 'VISA', cardType: CardType.KREDIT, lastFourDigits: '8872', expiryDate: '08/25', balance: -28000000, colorGradient: 'from-gray-700 to-gray-900' },
-    { id: 'CARD003', cardHolderName: 'Vena Pictures', bankName: 'M-Bank', cardType: CardType.DEBIT, lastFourDigits: '5561', expiryDate: '01/27', balance: 24050000, colorGradient: 'from-orange-500 to-amber-400' },
+    { id: 'CARD001', cardHolderName: 'Honesty Pictures', bankName: 'WBank', cardType: CardType.DEBIT, lastFourDigits: '3090', expiryDate: '12/26', balance: 85500000, colorGradient: 'from-blue-500 to-sky-400' },
+    { id: 'CARD002', cardHolderName: 'Honesty Pictures', bankName: 'VISA', cardType: CardType.KREDIT, lastFourDigits: '8872', expiryDate: '08/25', balance: -28000000, colorGradient: 'from-gray-700 to-gray-900' },
+    { id: 'CARD003', cardHolderName: 'Honesty Pictures', bankName: 'M-Bank', cardType: CardType.DEBIT, lastFourDigits: '5561', expiryDate: '01/27', balance: 24050000, colorGradient: 'from-orange-500 to-amber-400' },
 ];
 
 export const MOCK_CLIENTS: Client[] = [
@@ -677,8 +677,8 @@ export const MOCK_TEAM_PROJECT_PAYMENTS: TeamProjectPayment[] = [
     { id: 'TPP002', projectId: PROJ_2_ID, teamMemberName: 'Citra Lestari', teamMemberId: TEAM_2_ID, date: new Date(new Date().setDate(new Date().getDate() - 60)).toISOString(), status: 'Paid', fee: 2000000, reward: 250000 },
     { id: 'TPP003', projectId: PROJ_1_ID, teamMemberName: 'Andi Pratama', teamMemberId: TEAM_1_ID, date: nextMonth.toISOString(), status: 'Unpaid', fee: 1500000 },
     { id: 'TPP004', projectId: PROJ_1_ID, teamMemberName: 'Eka Saputra', teamMemberId: TEAM_4_ID, date: nextMonth.toISOString(), status: 'Unpaid', fee: 1250000 },
-    { id: 'TPP005', projectId: PROJ_1_ID, teamMemberName: 'Citra Lestari', teamMemberId: TEAM_2_ID, date: nextMonth.toISOString(), status: 'Unpaid', fee: 2000000 },
-    { id: 'TPP006', projectId: PROJ_1_ID, teamMemberName: 'Doni Firmansyah', teamMemberId: TEAM_3_ID, date: nextMonth.toISOString(), status: 'Unpaid', fee: 1000000 },
+    { id: 'TPP005', projectId: PROJ_1_ID, teamMemberName: 'Citra Lestari', teamMemberId: TEAM_2_ID, date: nextMonth.toISOString(), status: 'Unpaid' as const, fee: 2000000 },
+    { id: 'TPP006', projectId: PROJ_1_ID, teamMemberName: 'Doni Firmansyah', teamMemberId: TEAM_3_ID, date: nextMonth.toISOString(), status: 'Unpaid' as const, fee: 1000000 },
     { id: 'TPP007', projectId: PROJ_1_ID, teamMemberName: 'Galih Wicaksono', teamMemberId: TEAM_6_ID, date: nextMonth.toISOString(), status: 'Unpaid', fee: 1000000 },
     { id: 'TPP008', projectId: PROJ_5_ID, teamMemberName: 'Andi Pratama', teamMemberId: TEAM_1_ID, date: new Date(new Date().setDate(new Date().getDate() - 15)).toISOString(), status: 'Paid', fee: 1500000, reward: 100000 },
     { id: 'TPP009', projectId: PROJ_5_ID, teamMemberName: 'Doni Firmansyah', teamMemberId: TEAM_3_ID, date: new Date(new Date().setDate(new Date().getDate() - 15)).toISOString(), status: 'Paid', fee: 1000000, reward: 50000 },
@@ -709,13 +709,15 @@ export const MOCK_REWARD_LEDGER_ENTRIES: RewardLedgerEntry[] = [
 ];
 
 export const MOCK_USER_PROFILE: Profile = {
+    id: 'MOCK_PROFILE_1',
+    user_id: 'MOCK_USER_1',
     fullName: 'Vena Admin',
     email: 'admin@vena.pictures',
     phone: '0895-4061-81407',
-    companyName: 'Vena Pictures',
-    website: 'https://vena.pictures',
     address: 'Jl. Fotografi No. 123, Jakarta Selatan',
-    bankAccount: 'WBank - 1234567890 a/n Vena Pictures',
+    companyName: 'Honesty Pictures',
+    website: 'https://vena.pictures',
+    bankAccount: 'WBank - 1234567890 a/n Honesty Pictures',
     authorizedSigner: 'Vena Admin',
     idNumber: '3201234567890001',
     bio: 'Layanan fotografi dan videografi profesional untuk momen tak terlupakan Anda. Berbasis di Jakarta, melayani seluruh Indonesia.',
@@ -738,5 +740,5 @@ export const MOCK_USER_PROFILE: Profile = {
     notificationSettings: { newProject: true, paymentConfirmation: true, deadlineReminder: true },
     securitySettings: { twoFactorEnabled: false },
     briefingTemplate: 'Halo tim,\nBerikut adalah briefing untuk acara besok.\n\nKey Persons:\n- [Nama CP Klien]\n- [Nama WO]\n\nJangan lupa:\n- Bawa baterai cadangan & memory card kosong.\n- Datang 1 jam sebelum acara dimulai.\n- Dress code: Hitam rapi.\n\nSemangat!',
-    termsAndConditions: '📜 **Syarat & Ketentuan Umum**\n- Harga yang tertera dapat berubah sewaktu-waktu sebelum adanya kesepakatan.\n\n💰 **Pembayaran**\n- Pemesanan dianggap sah setelah pembayaran Uang Muka (DP) sebesar 50% dari total biaya.\n- Pelunasan wajib dilakukan paling lambat 3 (tiga) hari sebelum tanggal acara.\n\n⏱ **Pembatalan & Perubahan Jadwal**\n- Uang Muka (DP) yang telah dibayarkan tidak dapat dikembalikan (non-refundable) jika terjadi pembatalan dari pihak klien.\n- Perubahan jadwal dapat dilakukan maksimal 1 (satu) kali dengan konfirmasi selambat-lambatnya 14 hari sebelum tanggal acara, tergantung ketersediaan tim.\n\n📦 **Hasil Akhir**\n- Waktu pengerjaan hasil akhir (foto & video) adalah sesuai dengan yang tertera pada detail paket, dihitung setelah semua materi dan data dari klien kami terima.\n- Hak cipta hasil foto dan video tetap menjadi milik Vena Pictures. Klien mendapatkan hak guna pribadi dan non-komersial.\n- Vena Pictures berhak menggunakan hasil foto dan video untuk keperluan portofolio dan promosi dengan seizin klien.',
+    termsAndConditions: '📜 **Syarat & Ketentuan Umum**\n- Harga yang tertera dapat berubah sewaktu-waktu sebelum adanya kesepakatan.\n\n💰 **Pembayaran**\n- Pemesanan dianggap sah setelah pembayaran Uang Muka (DP) sebesar 50% dari total biaya.\n- Pelunasan wajib dilakukan paling lambat 3 (tiga) hari sebelum tanggal acara.\n\n⏱ **Pembatalan & Perubahan Jadwal**\n- Uang Muka (DP) yang telah dibayarkan tidak dapat dikembalikan (non-refundable) jika terjadi pembatalan dari pihak klien.\n- Perubahan jadwal dapat dilakukan maksimal 1 (satu) kali dengan konfirmasi selambat-lambatnya 14 hari sebelum tanggal acara, tergantung ketersediaan tim.\n\n📦 **Hasil Akhir**\n- Waktu pengerjaan hasil akhir (foto & video) adalah sesuai dengan yang tertera pada detail paket, dihitung setelah semua materi dan data dari klien kami terima.\n- Hak cipta hasil foto dan video tetap menjadi milik Honesty Pictures. Klien mendapatkan hak guna pribadi dan non-komersial.\n- Honesty Pictures berhak menggunakan hasil foto dan video untuk keperluan portofolio dan promosi dengan seizin klien.',
 };

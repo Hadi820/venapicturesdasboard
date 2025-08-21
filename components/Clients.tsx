@@ -779,7 +779,7 @@ const Clients: React.FC<ClientsProps> = ({ clients, clientCrud, projects, projec
                     type: TransactionType.INCOME,
                     projectId: newProject.id,
                     category: 'DP Proyek',
-                    method: 'Transfer Bank',
+                    method: 'Transfer Bank' as const,
                     cardId: formData.dpDestinationCardId,
                 };
                 await transactionCrud.add(newTransactionData);
@@ -847,7 +847,7 @@ const Clients: React.FC<ClientsProps> = ({ clients, clientCrud, projects, projec
             type: TransactionType.INCOME,
             projectId: project.id,
             category: 'Pelunasan Proyek',
-            method: 'Transfer Bank',
+            method: 'Transfer Bank' as const,
             cardId: destinationCardId,
         };
     

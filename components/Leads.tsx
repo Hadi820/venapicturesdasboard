@@ -255,7 +255,7 @@ const Leads: React.FC<LeadsProps> = ({
         setEditedLeadNotes(lead.notes || '');
         setEditedLeadWhatsapp(lead.whatsapp || '');
         if (lead.status === LeadStatus.FOLLOW_UP) {
-            const defaultMessage = `Halo ${lead.name},\n\nMenindaklanjuti diskusi kita sebelumnya.\n\nJika Anda sudah siap untuk melanjutkan pemesanan, Anda dapat mengisi formulir booking kami melalui tautan berikut:\n${bookingFormUrl}\n\nJangan ragu untuk bertanya jika ada hal lain yang bisa kami bantu.\n\nTerima kasih,\nVena Pictures`;
+            const defaultMessage = `Halo ${lead.name},\n\nMenindaklanjuti diskusi kita sebelumnya.\n\nJika Anda sudah siap untuk melanjutkan pemesanan, Anda dapat mengisi formulir booking kami melalui tautan berikut:\n${bookingFormUrl}\n\nJangan ragu untuk bertanya jika ada hal lain yang bisa kami bantu.\n\nTerima kasih,\nHonesty Pictures`;
             setFollowUpMessage(defaultMessage);
         }
         setIsDetailModalOpen(true);
@@ -271,7 +271,7 @@ const Leads: React.FC<LeadsProps> = ({
             return;
         }
 
-        const message = `Halo ${lead.name},\n\nTerima kasih telah menghubungi Vena Pictures. Sesuai diskusi kita, berikut adalah tautan untuk formulir pemesanan online kami:\n\n${bookingFormUrl}\n\nSilakan diisi jika Anda sudah siap untuk melanjutkan. Jangan ragu untuk bertanya jika ada yang kurang jelas.\n\nTerima kasih,\nVena Pictures`;
+    const message = `Halo ${lead.name},\n\nTerima kasih telah menghubungi Honesty Pictures. Sesuai diskusi kita, berikut adalah tautan untuk formulir pemesanan online kami:\n\n${bookingFormUrl}\n\nSilakan diisi jika Anda sudah siap untuk melanjutkan. Jangan ragu untuk bertanya jika ada yang kurang jelas.\n\nTerima kasih,\nHonesty Pictures`;
         
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
@@ -283,7 +283,7 @@ const Leads: React.FC<LeadsProps> = ({
     
         if (phoneNumber) {
             // If number found, generate message and open WhatsApp directly
-            const message = `Halo ${lead.name},\n\nMenindaklanjuti diskusi kita sebelumnya.\n\nJika Anda sudah siap untuk melanjutkan pemesanan, Anda dapat mengisi formulir booking kami melalui tautan berikut:\n${bookingFormUrl}\n\nJangan ragu untuk bertanya jika ada hal lain yang bisa kami bantu.\n\nTerima kasih,\nVena Pictures`;
+            const message = `Halo ${lead.name},\n\nMenindaklanjuti diskusi kita sebelumnya.\n\nJika Anda sudah siap untuk melanjutkan pemesanan, Anda dapat mengisi formulir booking kami melalui tautan berikut:\n${bookingFormUrl}\n\nJangan ragu untuk bertanya jika ada hal lain yang bisa kami bantu.\n\nTerima kasih,\nHonesty Pictures`;
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
             showNotification('Membuka WhatsApp untuk follow up.');
@@ -524,6 +524,24 @@ const Leads: React.FC<LeadsProps> = ({
         downloadCSV(headers, data, `data-prospek-${new Date().toISOString().split('T')[0]}.csv`);
     };
 
+    // Copy booking/package page link to clipboard
+    const handleSharePackagePage = () => {
+        navigator.clipboard.writeText(bookingFormUrl).then(() => {
+            showNotification('Tautan Halaman Paket disalin!');
+        }).catch(() => {
+            showNotification('Gagal menyalin tautan.');
+        });
+    };
+
+    // Open WhatsApp to a specific number with the booking link prefilled
+    const handleShareToSpecificWhatsApp = () => {
+        const targetNumber = '6285693762240'; // +62 856-9376-2240 -> international format without + or dashes
+        const message = `Halo, berikut tautan halaman paket: ${bookingFormUrl}`;
+        const whatsappUrl = `https://wa.me/${targetNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+        showNotification('Membuka WhatsApp untuk membagikan tautan.');
+    };
+
     return (
         <div className="space-y-6">
             <PageHeader title="Manajemen Prospek" subtitle="Lacak dan kelola semua prospek potensial Anda dalam satu papan.">
@@ -533,6 +551,12 @@ const Leads: React.FC<LeadsProps> = ({
                     </button>
                     <button onClick={() => setIsShareProspectFormModalOpen(true)} className="button-secondary inline-flex items-center gap-2">
                         <Share2Icon className="w-4 h-4" /> Bagikan Form Prospek
+                    </button>
+                    <button onClick={handleSharePackagePage} className="button-secondary inline-flex items-center gap-2">
+                        <Share2Icon className="w-4 h-4" /> Bagikan Halaman Paket
+                    </button>
+                    <button onClick={handleShareToSpecificWhatsApp} className="button-secondary inline-flex items-center gap-2">
+                        <SendIcon className="w-4 h-4" /> Bagikan via WhatsApp
                     </button>
                     <button onClick={() => setIsAddModalOpen(true)} className="button-primary inline-flex items-center gap-2"><PlusIcon className="w-5 h-5" /> Tambah Manual</button>
                 </div>

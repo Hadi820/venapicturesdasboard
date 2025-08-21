@@ -5,7 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f1f5f9">
-    <title>Vena Pictures</title>
+  <title>Honesty Pictures</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -128,7 +128,7 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        text-fill-color: transparent;
+  /* unprefixed `text-fill-color` is non-standard; using -webkit-text-fill-color above for WebKit browsers */
       }
 
       /* --- Form Element Styles (Floating Label) --- */
@@ -199,7 +199,11 @@
       }
       
       input[type="checkbox"] {
-        @apply h-4 w-4 shrink-0 rounded;
+        /* Replaced Tailwind @apply with explicit CSS for standalone stylesheet */
+        height: 1rem; /* h-4 */
+        width: 1rem;  /* w-4 */
+        flex-shrink: 0; /* shrink-0 */
+        border-radius: 0.25rem; /* rounded */
         color: var(--color-accent);
         border: 1.5px solid var(--color-text-secondary);
         background-color: transparent;

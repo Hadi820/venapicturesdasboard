@@ -408,8 +408,14 @@ export const Freelancers: React.FC<FreelancersProps> = ({
     }, [qrModalContent]);
 
     const handleOpenQrModal = (member: TeamMember) => {
-        const url = `${window.location.origin}${window.location.pathname}#/freelancer-portal/${member.portalAccessId}`;
-        setQrModalContent({ title: `Portal QR Code untuk ${member.name}`, url });
+    // Prefer a configured public base URL (set in .env as VITE_PUBLIC_URL) so QR codes/links
+    // can point to a reachable host (e.g. a LAN IP or a deployed domain). If not set,
+    // fall back to the current origin (useful for same-machine access).
+    // Example .env: VITE_PUBLIC_URL=http://192.168.1.100:5173
+    const configuredBase = import.meta.env.VITE_PUBLIC_URL as string | undefined;
+    const base = configuredBase && configuredBase.length > 0 ? configuredBase : window.location.origin;
+    const url = `${base}${window.location.pathname}#/freelancer-portal/${member.portalAccessId}`;
+    setQrModalContent({ title: `Portal QR Code untuk ${member.name}`, url });
     };
 
     const teamStats = useMemo(() => {
@@ -448,6 +454,7 @@ export const Freelancers: React.FC<FreelancersProps> = ({
                 rewardBalance: 0,
                 performanceNotes: [],
                 portalAccessId: crypto.randomUUID(),
+                rating: 3,
             };
             await teamMemberCrud.add(newMemberData);
             showNotification(`Freelancer ${formData.name} berhasil ditambahkan.`);
@@ -507,7 +514,7 @@ export const Freelancers: React.FC<FreelancersProps> = ({
             amount: paymentAmount,
             type: TransactionType.EXPENSE,
             category: 'Gaji Freelancer',
-            method: 'Transfer Bank',
+            method: 'Transfer Bank' as const,
         };
         
         // 2. Update Card/Pocket Balance
@@ -572,7 +579,7 @@ export const Freelancers: React.FC<FreelancersProps> = ({
                 amount: withdrawalAmount,
                 type: TransactionType.EXPENSE,
                 category: 'Penarikan Hadiah Freelancer',
-                method: 'Transfer Bank',
+                method: 'Transfer Bank' as const,
                 cardId: sourceCard.id,
             };
 

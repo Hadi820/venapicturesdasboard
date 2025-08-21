@@ -102,7 +102,7 @@ const ClientPortal: React.FC<ClientPortalProps> = ({ accessId, clients, projects
                 <aside className="hidden lg:block lg:col-span-3 xl:col-span-2 py-8">
                     <div className="sticky top-8">
                         <div className="px-4 mb-8">
-                             <h1 className="text-2xl font-bold text-gradient">Vena Pictures</h1>
+                             <h1 className="text-2xl font-bold text-gradient">Honesty Pictures</h1>
                         </div>
                         <nav className="space-y-2 px-2">
                              {tabs.map(tab => (

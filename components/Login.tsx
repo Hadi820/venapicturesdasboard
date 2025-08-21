@@ -54,8 +54,10 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, users }) => {
                     email: data.user.email || '',
                     id: data.user.id,
                     role: 'Admin', // Atur sesuai kebutuhan, bisa ambil dari metadata
-                    permissions: [] // Atur sesuai kebutuhan
-                });
+                    permissions: [], // Atur sesuai kebutuhan
+                    password: '',
+                    fullName: data.user.email || ''
+                } as any);
             }
         } catch (err) {
             setError('Terjadi kesalahan saat login.');
@@ -124,11 +126,6 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, users }) => {
                             </button>
                         </div>
                     </form>
-                     <div className="text-center mt-6 text-xs text-slate-400 bg-slate-50 p-3 rounded-lg">
-                        <p className="font-bold text-slate-500">Akun Demo:</p>
-                        <p>Admin: <span className="font-semibold text-slate-600">admin@vena.pictures</span> / <span className="font-semibold text-slate-600">admin</span></p>
-                        <p>Member: <span className="font-semibold text-slate-600">member@vena.pictures</span> / <span className="font-semibold text-slate-600">member</span></p>
-                    </div>
                     <div className="text-center mt-4">
                         <a href="#/verify" className="text-sm text-slate-500 hover:text-blue-600 transition-colors">
                             Verifikasi Dokumen Digital
